@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--spring整合redis-->
+    <!--jedisConnectionFactory：redis客户端链接Redis服务器的链接工厂。use-pool为true表示开启连接池
+        注意：如果java需要访问redis-server就需要先开启Redis的远程访问的权限
+    -->
+    <bean id="jedisConnectionFactory"
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+          p:use-pool="true" p:hostName="192.168.17.128" p:port="6379" p:password="123456"/>
+    <!-- redis template definition -->
+    <!--RedisTemplate:操作Redis的一个工具类。类似mybatis中的sqlSession-->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate"
+          p:connection-factory-ref="jedisConnectionFactory"/>
+</beans>
